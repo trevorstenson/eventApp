@@ -10,8 +10,9 @@
   <% else %>
   <div class="col">
     <h3>
-      Please register or login to manage events and users.
+      View <a href="/events">Events</a> or <a href="/users">Users</a>.
     </h3>
-    </div>
+    <div class="h5">To manage events and users, you need to login.</div>
+  </div>
   <% end %>
 </div>

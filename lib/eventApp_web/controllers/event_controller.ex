@@ -3,6 +3,9 @@ defmodule EventAppWeb.EventController do
 
   alias EventApp.Events
   alias EventApp.Events.Event
+  alias EventAppWeb.Plugs
+
+  plug Plugs.Authorization when action not in [:index]
 
   def index(conn, _params) do
     events = Events.list_events()
