@@ -4,29 +4,6 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
-<%# 
-  <div class="container">
-   <div class="row">
-      <div class='col-sm-6'>
-         <div class="form-group">
-            <div class='input-group date' id='datetimepicker2'>
-               <input type='text' class="form-control" />
-               <span class="input-group-addon">
-               <span class="glyphicon glyphicon-calendar"></span>
-               </span>
-            </div>
-         </div>
-      </div>
-      <script type="text/javascript">
-      console.log('hello')
-         $(function () {
-             $('#datetimepicker2').datepicker({
-               format: 'dd/mm/yyyy'
-             });
-         });
-      </script>
-   </div>
-</div> %>
 
   <%= label f, :name %>
   <%= text_input f, :name %>

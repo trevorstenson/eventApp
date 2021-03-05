@@ -5,7 +5,7 @@ use Mix.Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :eventApp, EventApp.Repo,
+config :eventapp, EventApp.Repo,
   username: "postgres",
   password: "postgres",
   database: "eventapp_test#{System.get_env("MIX_TEST_PARTITION")}",
@@ -14,7 +14,7 @@ config :eventApp, EventApp.Repo,
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :eventApp, EventAppWeb.Endpoint,
+config :eventapp, EventAppWeb.Endpoint,
   http: [port: 4002],
   server: false
 
