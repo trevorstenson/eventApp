@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size:80%;">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EventApp · Phoenix Framework</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <body>
+    <div role="main" class="container">
+      <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+        <p><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+      <% end %>
+
+      <%= if get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
+      <div class="p-2 d-flex justify-content-between align-content-center bg-dark text-white rounded">
+        <h2>Events</h2>
+        <div class="d-flex flex-row pt-2">
+          <%= if @conn.assigns[:current_user] do %>
+            <div class="h5">
+              <%= link("Logout", to: Routes.session_path(@conn, :delete), method: :delete) %>
+            </div>
+          <% else %>
+            <div class="col">
+              <%= form_for @conn,
+              Routes.session_path(@conn, :create),
+              [class: "form-inline mb-2"],
+              fn f -> %>
+                <div class="form-group">
+                <%= text_input f, :email, class: "form-control form-control-sm", placeholder: "Email" %>
+                <%= submit "Login", class: "btn btn-light mx-2" %>
+                </div>
+              <% end %>
+            </div>
+            <%= link "Register", to: Routes.user_path(@conn, :new), class: "btn btn-light mb-2 align-items-center rounded" %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= @inner_content %>
+
+    </div>
+  </body>
+</html>

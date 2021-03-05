@@ -1,0 +1,13 @@
+
+
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+@import "~bootstrap/scss/bootstrap";
+
+html {
+  font-size: 100;
+}
+
+.invalid-feedback {
+  display: block;
+}
