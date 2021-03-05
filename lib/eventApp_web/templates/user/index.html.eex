@@ -1,12 +1,11 @@
 <div class="mt-4">
-<h2>Listing Users</h2>
-<table>
-  <thead>
+<h2>All Users</h2>
+<table class="table table-light table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-
-      <th></th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +23,5 @@
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>
+<span><%= link "New User", to: Routes.user_path(@conn, :new), class: "btn btn-dark align-items-center rounded" %></span>
 </div>

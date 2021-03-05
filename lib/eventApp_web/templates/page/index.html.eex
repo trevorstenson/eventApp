@@ -1,5 +1,17 @@
 <div class="mt-4">
-  <h2>
-    Please create an account or log in.
-  </h2>
+  <%= if @conn.assigns[:current_user] do %>
+    <div class="col">
+      <h3>What would you like to do?</h3>
+      <ul class="mt-4">
+        <li><span class="h4"><a href="/events">Manage events</a></span></li>
+        <li><span class="h4"><a href="/users">Manage users</a></span></li>
+      </ul>
+    </div>
+  <% else %>
+  <div class="col">
+    <h3>
+      Please register or login to manage events and users.
+    </h3>
+    </div>
+  <% end %>
 </div>
