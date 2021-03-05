@@ -1,0 +1,37 @@
+
+Web Dev Spring 2021 HW07 Status
+
+Answer the following questions:
+
+
+1. What's your name?
+Trevor Stenson
+
+
+2. What's the URL of the github repo with your work for this HW?
+https://github.com/trevorstenson/eventApp
+
+
+3. What's the URL that you deployed to?
+events.downwind.xyz
+
+
+4. Is your app functionality complete? If not, what's missing?
+Everything works. In fact, I believe I went too far and added authorization required
+for adding/deleting/updating both posts and users. You can view lists of these resources
+without logging in, but to change any of the data you need to login.
+
+
+5. Is your app properly deployed? If not, what went wrong?
+It is.
+
+
+6. If you would like the deployment for an old homework to be reconsidered, what
+are the links to your Inkfish submission and deployed site?
+No need.
+
+
+And here's a list of tasks for grading comments. Just leave this here:
+ - Development
+ - Deployment
+ - Submission
