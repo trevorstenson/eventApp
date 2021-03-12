@@ -1,5 +1,5 @@
 <div class="mt-4">
-<h2>All Events</h2>
+<h2>My Events</h2>
 <table class="table table-light table-hover">
   <thead class="thead-dark">
     <tr>
@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-<%= for event <- @events do %>
+<%= for event <- @my_events do %>
     <tr>
       <td><%= event.user.name %></td>
       <td><%= event.name %></td>
@@ -26,5 +26,33 @@
 <% end %>
   </tbody>
 </table>
-<span><%= link "New Event", to: Routes.event_path(@conn, :new), class: "btn btn-dark align-items-center rounded" %></span>
+
+<h2 class="mt-5">Invited To</h2>
+<table class="table table-light table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">User</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for event <- @invited_events do %>
+    <tr>
+      <td><%= event.user.name %></td>
+      <td><%= event.name %></td>
+      <td><%= event.date %></td>
+      <td><%= event.description %></td>
+      <td>
+        <span><%= link "Show/Respond", to: Routes.event_path(@conn, :show, event) %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<%= if logged_in?(@conn) do %>
+  <span><%= link "New Event", to: Routes.event_path(@conn, :new), class: "btn btn-dark align-items-center rounded" %></span>
+<% end %>
 </div>

@@ -27,6 +27,7 @@
         <h2>Events</h2>
         <div class="d-flex flex-row pt-2">
           <%= if @conn.assigns[:current_user] do %>
+            <div class="mr-3"><%= @conn.assigns[:current_user].email %></div>
             <div class="h5">
               <%= link("Logout", to: Routes.session_path(@conn, :delete), method: :delete) %>
             </div>

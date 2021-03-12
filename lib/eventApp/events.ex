@@ -20,6 +20,8 @@ defmodule EventApp.Events do
   def list_events do
     Repo.all(Event)
     |> Repo.preload(:user)
+    |> Repo.preload(:comments)
+    |> Repo.preload(:invites)
   end
 
   @doc """
@@ -88,6 +90,14 @@ defmodule EventApp.Events do
   """
   def delete_event(%Event{} = event) do
     Repo.delete(event)
+  end
+
+  def load_comments(%Event{} = event) do
+    Repo.preload(event, [comments: :user])
+  end
+
+  def load_invites(%Event{} = event) do
+    Repo.preload(event, [invites: :user])
   end
 
   @doc """

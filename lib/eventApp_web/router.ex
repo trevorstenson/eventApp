@@ -22,6 +22,11 @@ defmodule EventAppWeb.Router do
     resources "/events", EventController
     resources "/sessions", SessionController,
       only: [:create, :delete], singleton: true
+    resources "/invites", InviteController do
+      post "/going", InviteController, :going
+      post "/not_going", InviteController, :not_going
+    end
+    resources "/comments", CommentController
   end
 
   # Other scopes may use custom stacks.

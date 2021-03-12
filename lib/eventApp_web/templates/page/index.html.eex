@@ -4,13 +4,12 @@
       <h3>What would you like to do?</h3>
       <ul class="mt-4">
         <li><span class="h4"><a href="/events">Manage events</a></span></li>
-        <li><span class="h4"><a href="/users">Manage users</a></span></li>
       </ul>
     </div>
   <% else %>
   <div class="col">
     <h3>
-      View <a href="/events">Events</a> or <a href="/users">Users</a>.
+      View <a href="/events">Events</a>.
     </h3>
     <div class="h5">To manage events and users, you need to login.</div>
   </div>

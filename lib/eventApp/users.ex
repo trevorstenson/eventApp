@@ -19,6 +19,13 @@ defmodule EventApp.Users do
   """
   def list_users do
     Repo.all(User)
+    |> Repo.preload(:events)
+    |> Repo.preload(:comments)
+  end
+
+  def get_user_by_email(email) do
+    IO.puts("hi!!!!!")
+    Repo.get_by!(User, email: email)
   end
 
   @doc """

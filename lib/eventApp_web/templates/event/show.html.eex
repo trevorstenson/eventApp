@@ -1,23 +1,95 @@
-<h1>Show Event</h1>
+<style>
+.thin {
+  width: 10%;
+}
+</style>
+<h1 class="p-3">Event Details</h1>
+<div class="d-flex">
+  <div class="w-50">
+    <ul>
+      <li>
+        <strong>Name:</strong>
+        <%= @event.name %>
+      </li>
 
-<ul>
+      <li>
+        <strong>Date:</strong>
+        <%= @event.date %>
+      </li>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @event.name %>
-  </li>
+      <li>
+        <strong>Description:</strong>
+        <%= @event.description %>
+      </li>
 
-  <li>
-    <strong>Date:</strong>
-    <%= @event.date %>
-  </li>
+    </ul>
+  </div>
+  <%= if current_user_id?(@conn, @event.user_id) do %>
+  <div class="w-50 h-100">
+    <span><%= link "Invite Friend", to: Routes.invite_path(@conn, :new, id: @event.id), class: "btn btn-primary" %></span>
+    <h5 class="mt-4">Overview</h5>
+    <div>Attending: <%= count_coming(@conn, @event) %></div>
+    <div>Not Coming: <%= count_not_coming(@conn, @event) %></div>
+    <div>Undecided: <%= count_uncertain(@conn, @event) %></div>
+    <p class="h5 mt-3">Current invites:</p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Status</th>
+          <th scope="col">User</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for invite <- @event.invites do %>
+          <tr onclick="/invite">
+            <td class="thin"><%= translate_attending(invite) %></td>
+            <td class="font-weight-bold"><%= invite.user.name %></td>
+            <td><%= invite.user.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+  </div>
+  <% end %>
+  <%= if is_user_invited(@conn, @event) do %>
+    
+    <div>
+      <h3 class="mb-2">You're invited!</h3>
+      <div class="h4">Would you like to attend?</div>
+      <div>Current status: <%= translate_attending(get_invite(@conn, @event)) %></div>
+      <div class="d-flex flex-row mt-3">
+        <%= button "❌", to: Routes.invite_invite_path(@conn, :not_going, get_invite(@conn, @event)), method: :post, class: "btn btn-dark border w-50 p-2 mr-2" %>
+        <%= button "✔️", to: Routes.invite_invite_path(@conn, :going, get_invite(@conn, @event)), method: :post, class: "btn btn-dark border w-50 p-2" %>
+        </div>
+    </div>
+  <% end %>
+</div>
 
-  <li>
-    <strong>Description:</strong>
-    <%= @event.description %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>
+<%= if current_user_id?(@conn, @event.user_id) do %>
+  <span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>
+<% end %>
 <span><%= link "Back", to: Routes.event_path(@conn, :index) %></span>
+
+<h4 class="mt-5">Add Comment</h4>
+<%= if logged_in?(@conn) do %>
+  <%= render(
+    EventAppWeb.CommentView,
+    "form.html",
+    changeset: @new_comment,
+    action: Routes.comment_path(@conn, :create)
+  ) %>
+<% end %>
+
+<div class="w-50">
+<%= for comm <- @event.comments do %>
+  <div class="card d-flex flex-row p-2">
+    <div class="card-body">
+      <p class="card-text h5"><span class="font-weight-bold"><%= comm.user.name %></span>: <%= comm.body %></p>
+    </div>
+    <%= if can_delete_comment(@conn, @event, comm) do %>
+      <%= button "Delete", to: Routes.comment_path(@conn, :delete, comm.id), method: :delete, class: "btn btn-dark w-25" %>
+    <% end %>
+  </div>
+<% end %>
+</div>
